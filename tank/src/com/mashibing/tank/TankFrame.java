@@ -57,9 +57,6 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
-//            x+=20;
-//            repaint();
-//            System.out.println("key pressed");
         }
 
         @Override
