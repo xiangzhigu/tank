@@ -11,12 +11,22 @@ public class Bullet {
 
     private boolean living = true;
     TankFrame tankFrame = null;
+    private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, TankFrame tankFrame) {
+    public Bullet(int x, int y, Dir dir, Group group,TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tankFrame = tankFrame;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public void paint(Graphics g){
@@ -66,6 +76,9 @@ public class Bullet {
     }
 
     public void collidewith(Tank tank) {
+        if(this.group == tank.getGroup()) return;
+
+        //TODO:用一个rectangle来记录子弹的位置
         Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
         Rectangle rectangle2 = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);
         if(rectangle1.intersects(rectangle2)){
