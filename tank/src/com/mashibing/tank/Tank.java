@@ -5,8 +5,13 @@ import java.awt.*;
 public class Tank {
     private int x,y;
     private Dir dir = Dir.DOWN;
-    private final static int SPEED = 10;
+    private final static int SPEED = 5;
+
+    public static int WIDTH = ResourceMgr.tankL.getWidth();
+    public static int HEIGHT = ResourceMgr.tankL.getHeight();
+
     private boolean moving = false;
+    private boolean living = true;
 
     private TankFrame tankFrame =null;
 
@@ -50,6 +55,7 @@ public class Tank {
     }
 
     public void paint(Graphics g){
+        if(!living) tankFrame.tanks.remove(this);
         switch (dir){
             case LEFT:
                 g.drawImage(ResourceMgr.tankL,x,y,null);
@@ -89,6 +95,12 @@ public class Tank {
     }
 
     public void fire() {
-        tankFrame.bullets.add(new Bullet(this.x,this.y,this.dir,this.tankFrame));
+        int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
+        int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+        tankFrame.bullets.add(new Bullet(bX,bY,this.dir,this.tankFrame));
+    }
+
+    public void die() {
+        this.living = false;
     }
 }
