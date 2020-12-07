@@ -9,6 +9,8 @@ public class Bullet {
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
 
+    Rectangle rectangle = new Rectangle();
+
     private boolean living = true;
     TankFrame tankFrame = null;
     private Group group = Group.BAD;
@@ -19,6 +21,11 @@ public class Bullet {
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
     }
 
     public Group getGroup() {
@@ -69,6 +76,9 @@ public class Bullet {
                 y+=SPEED;
                 break;
         }
+        //update rectangle
+        rectangle.x = this.x;
+        rectangle.y = this.y;
 
         if(x<0||y<0||x>TankFrame.GAME_WIDTH||y>TankFrame.GAME_HEIGHT){
             living=false;
@@ -79,9 +89,9 @@ public class Bullet {
         if(this.group == tank.getGroup()) return;
 
         //TODO:用一个rectangle来记录子弹的位置
-        Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-        Rectangle rectangle2 = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);
-        if(rectangle1.intersects(rectangle2)){
+//        Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
+//        Rectangle rectangle2 = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);
+        if(rectangle.intersects(tank.rectangle)){
             tank.die();
             this.die();
             int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
