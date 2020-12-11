@@ -17,7 +17,7 @@ public class Explode {
         this.y = y;
         this.tankFrame = tankFrame;
 
-        new Thread(()->new Audio("audio/explode.wav").play()).start();
+//        new Thread(()->new Audio("audio/explode.wav").play()).start();  //爆炸声
     }
 
 
