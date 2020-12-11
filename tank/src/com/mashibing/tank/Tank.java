@@ -34,6 +34,7 @@ public class Tank {
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
+
     }
 
     public int getX() {
@@ -137,7 +138,12 @@ public class Tank {
     }
 
     public void fire() {
-        DefaultFireStrategy.getInstance().fire(this);
+//        DefaultFireStrategy.getInstance().fire(this);
+        if (this.group != Group.GOOD) {
+            DefaultFireStrategy.getInstance().fire(this);
+        } else {
+            FourDirFireStrategy.getInstance().fire(this);
+        }
     }
 
     public void die() {
