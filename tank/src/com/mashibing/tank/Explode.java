@@ -1,8 +1,10 @@
 package com.mashibing.tank;
 
+import com.mashibing.tank.abstractfactory.BaseExplode;
+
 import java.awt.*;
 
-public class Explode {
+public class Explode extends BaseExplode {
     private int x,y;
     public static int WIDTH = ResourceMgr.explode[0].getWidth();
     public static int HEIGHT = ResourceMgr.explode[0].getHeight();
@@ -21,6 +23,7 @@ public class Explode {
     }
 
 
+    @Override
     public void paint(Graphics g){
         g.drawImage(ResourceMgr.explode[step++], x, y, null);
         if(step >= ResourceMgr.explode.length)

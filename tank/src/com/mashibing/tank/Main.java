@@ -1,5 +1,7 @@
 package com.mashibing.tank;
 
+import com.mashibing.tank.abstractfactory.RectTank;
+
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -13,6 +15,7 @@ public class Main {
         //初始化敌方坦克
         for (int i = 0; i < initTankCount; i++) {
             tankFrame.tanks.add(new Tank(50 + i*80,200,Dir.DOWN,Group.BAD,tankFrame));
+//            tankFrame.tanks.add(new RectTank(50 + i*80,200,Dir.DOWN,Group.BAD,tankFrame));
         }
 
         while (true){

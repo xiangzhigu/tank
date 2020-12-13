@@ -1,5 +1,7 @@
 package com.mashibing.tank;
 
+import com.mashibing.tank.abstractfactory.BaseTank;
+
 public class FourDirFireStrategy implements FireStrategy{
 
     private FourDirFireStrategy(){}
@@ -17,7 +19,8 @@ public class FourDirFireStrategy implements FireStrategy{
         int bY = t.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
         Dir[] dirs = Dir.values();
         for (Dir dir: dirs) {
-            new Bullet(bX,bY,dir,t.group,t.tankFrame);
+//            new Bullet(bX,bY,dir,t.group,t.tankFrame);
+            t.tankFrame.gameFactory.createBullet(bX,bY,dir,t.group,t.tankFrame); //工厂+策略
         }
     }
 }

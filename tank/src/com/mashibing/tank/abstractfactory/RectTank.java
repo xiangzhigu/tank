@@ -1,11 +1,11 @@
-package com.mashibing.tank;
+package com.mashibing.tank.abstractfactory;
 
-import com.mashibing.tank.abstractfactory.BaseTank;
+import com.mashibing.tank.*;
 
 import java.awt.*;
 import java.util.Random;
 
-public class Tank extends BaseTank {
+public class RectTank extends BaseTank{
     int x,y;
     Dir dir = Dir.DOWN;
     private final static int SPEED = 5;
@@ -25,7 +25,7 @@ public class Tank extends BaseTank {
 
 //    FireStrategy fireStrategy = new DefaultFireStrategy();
 
-    public Tank(int x, int y, Dir dir,Group group, TankFrame tankFrame) {
+    public RectTank(int x, int y, Dir dir,Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -81,23 +81,10 @@ public class Tank extends BaseTank {
 
     public void paint(Graphics g){
         if(!living) tankFrame.tanks.remove(this);
-        switch (dir){
-            case LEFT:
-                g.drawImage(this.group ==Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL,x,y,null);
-                break;
-            case UP:
-                g.drawImage(this.group ==Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU,x,y,null);
-                break;
-            case RIGHT:
-                g.drawImage(this.group ==Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR,x,y,null);
-                break;
-            case DOWN:
-                g.drawImage(this.group ==Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD,x,y,null);
-                break;
-        }
-//        g.setColor(Color.YELLOW);
-//        g.fillRect(x,y,50,50);
-//        g.setColor(color);
+        Color color = g.getColor();
+        g.setColor(group == Group.GOOD ? Color.RED : Color.BLUE);
+        g.fillRect(x,y,50,50);
+        g.setColor(color);
         move();
     }
 
@@ -141,18 +128,18 @@ public class Tank extends BaseTank {
 
     public void fire() {
 //        DefaultFireStrategy.getInstance().fire(this);
-        if (this.group != Group.GOOD) {
-            DefaultFireStrategy.getInstance().fire(this);
-        } else {
-            FourDirFireStrategy.getInstance().fire(this);
-        }
-//        int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
-//        int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-//        Dir[] dirs = Dir.values();
-//        for (Dir dir: dirs) {
-////            new Bullet(bX,bY,dir,t.group,t.tankFrame);
-//            this.tankFrame.gameFactory.createBullet(bX,bY,dir,this.group,this.tankFrame);
+//        if (this.group != Group.GOOD) {
+//            DefaultFireStrategy.getInstance().fire(this);
+//        } else {
+//            FourDirFireStrategy.getInstance().fire(this);
 //        }
+        int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
+        int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+        Dir[] dirs = Dir.values();
+        for (Dir dir: dirs) {
+//            new Bullet(bX,bY,dir,t.group,t.tankFrame);
+            this.tankFrame.gameFactory.createBullet(bX,bY,dir,this.group,this.tankFrame);
+        }
     }
 
     public void die() {

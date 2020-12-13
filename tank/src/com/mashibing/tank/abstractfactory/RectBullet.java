@@ -1,11 +1,10 @@
-package com.mashibing.tank;
+package com.mashibing.tank.abstractfactory;
 
-import com.mashibing.tank.abstractfactory.BaseBullet;
-import com.mashibing.tank.abstractfactory.BaseTank;
+import com.mashibing.tank.*;
 
 import java.awt.*;
 
-public class Bullet extends BaseBullet {
+public class RectBullet extends BaseBullet{
     private static final int SPEED = 10;
     private int x,y;
     private Dir dir;
@@ -18,7 +17,7 @@ public class Bullet extends BaseBullet {
     TankFrame tankFrame = null;
     private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, Group group,TankFrame tankFrame) {
+    public RectBullet(int x, int y, Dir dir, Group group,TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -45,25 +44,25 @@ public class Bullet extends BaseBullet {
         if (!living){
             tankFrame.bullets.remove(this);
         }
-        switch (dir){
-            case LEFT:
-                g.drawImage(ResourceMgr.bulletL,x,y,null);
-                break;
-            case UP:
-                g.drawImage(ResourceMgr.bulletU,x,y,null);
-                break;
-            case RIGHT:
-                g.drawImage(ResourceMgr.bulletR,x,y,null);
-                break;
-            case DOWN:
-                g.drawImage(ResourceMgr.bulletD,x,y,null);
-                break;
-        }
+//        switch (dir){
+//            case LEFT:
+//                g.drawImage(ResourceMgr.bulletL,x,y,null);
+//                break;
+//            case UP:
+//                g.drawImage(ResourceMgr.bulletU,x,y,null);
+//                break;
+//            case RIGHT:
+//                g.drawImage(ResourceMgr.bulletR,x,y,null);
+//                break;
+//            case DOWN:
+//                g.drawImage(ResourceMgr.bulletD,x,y,null);
+//                break;
+//        }
 
-//        Color c = g.getColor();
-//        g.setColor(Color.RED);
-//        g.fillOval(x,y,WIDTH,HEIGHT);
-//        g.setColor(c);
+        Color c = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.fillOval(x,y,WIDTH,HEIGHT);
+        g.setColor(c);
         move();
     }
     private void move() {
