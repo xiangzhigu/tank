@@ -11,18 +11,12 @@ import java.util.List;
 
 public class TankFrame extends Frame {
 
-//    int x=200;
-//    int y=200;
-//    Dir dir = Dir.DOWN;
-//    private static final int SPEED = 10;
     static final int GAME_WIDTH = 1000,GAME_HEIGHT=960;
 
     Tank myTank = new Tank(200,400,Dir.DOWN,Group.GOOD,this);
     List<Bullet> bullets = new ArrayList<>();
     List<Tank> tanks = new ArrayList<>();
     List<Explode> explodes = new ArrayList<>();
-//    Bullet bullet = new Bullet(300,300,Dir.DOWN);
-//    Explode explode = new Explode(100,100,this);
 
     public TankFrame(){
         setSize(GAME_WIDTH,GAME_HEIGHT);
