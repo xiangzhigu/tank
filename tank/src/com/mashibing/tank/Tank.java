@@ -19,16 +19,19 @@ public class Tank {
     private boolean moving = true;
     private boolean living = true;
 
-    TankFrame tankFrame =null;
+//    TankFrame tankFrame =null;
 
 //    FireStrategy fireStrategy = new DefaultFireStrategy();
 
-    public Tank(int x, int y, Dir dir,Group group, TankFrame tankFrame) {
+    GameModel gameModel;
+
+    public Tank(int x, int y, Dir dir,Group group, GameModel gameModel) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+//        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
@@ -78,7 +81,7 @@ public class Tank {
     }
 
     public void paint(Graphics g){
-        if(!living) tankFrame.tanks.remove(this);
+        if(!living) gameModel.tanks.remove(this);
         switch (dir){
             case LEFT:
                 g.drawImage(this.group ==Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL,x,y,null);
