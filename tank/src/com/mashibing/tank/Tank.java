@@ -1,13 +1,18 @@
 package com.mashibing.tank;
 
+import com.mashibing.tank.strategy.DefaultFireStrategy;
+import com.mashibing.tank.strategy.FourDirFireStrategy;
+
 import java.awt.*;
 import java.util.Random;
 
-public class Tank {
-    int x,y;
-    Dir dir = Dir.DOWN;
+public class Tank extends GameObject{
+    public int x,y;
+//    public int oldx,oldy;
+
+    public Dir dir = Dir.DOWN;
     private final static int SPEED = 5;
-    Group group = Group.BAD;
+    public Group group = Group.BAD;
 
     private Random random  = new Random();
 
@@ -23,7 +28,7 @@ public class Tank {
 
 //    FireStrategy fireStrategy = new DefaultFireStrategy();
 
-    GameModel gameModel;
+    public GameModel gameModel;
 
     public Tank(int x, int y, Dir dir,Group group, GameModel gameModel) {
         this.x = x;
@@ -38,6 +43,14 @@ public class Tank {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
     }
 
     public int getX() {
@@ -81,7 +94,7 @@ public class Tank {
     }
 
     public void paint(Graphics g){
-        if(!living) gameModel.tanks.remove(this);
+        if(!living) gameModel.remove(this);
         switch (dir){
             case LEFT:
                 g.drawImage(this.group ==Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL,x,y,null);
@@ -103,6 +116,8 @@ public class Tank {
     }
 
     private void move() {
+//        oldx = x;
+//        oldy = y;
         if(!moving) return;;
         switch (dir){
             case LEFT:
@@ -151,5 +166,8 @@ public class Tank {
 
     public void die() {
         this.living = false;
+    }
+    public void stop(){
+        moving = false;
     }
 }

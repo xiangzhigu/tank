@@ -2,7 +2,7 @@ package com.mashibing.tank;
 
 import java.awt.*;
 
-public class Bullet {
+public class Bullet extends GameObject{
     private static final int SPEED = 10;
     private int x,y;
     private Dir dir;
@@ -28,7 +28,7 @@ public class Bullet {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        gameModel.bullets.add(this);
+        gameModel.add(this);
     }
 
     public Group getGroup() {
@@ -41,7 +41,7 @@ public class Bullet {
 
     public void paint(Graphics g){
         if (!living){
-            gameModel.bullets.remove(this);
+            gameModel.remove(this);
         }
         switch (dir){
             case LEFT:
@@ -88,8 +88,8 @@ public class Bullet {
         }
     }
 
-    public void collidewith(Tank tank) {
-        if(this.group == tank.getGroup()) return;
+    public boolean collidewith(Tank tank) {
+        if(this.group == tank.getGroup()) return false;
 
         //TODO:用一个rectangle来记录子弹的位置
 //        Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
@@ -99,8 +99,10 @@ public class Bullet {
             this.die();
             int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            gameModel.explodes.add(new Explode(eX,eY,gameModel));
+            gameModel.add(new Explode(eX,eY,gameModel));
+            return true;
         }
+        return false;
     }
 
     private void die() {

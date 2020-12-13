@@ -1,6 +1,9 @@
-package com.mashibing.tank;
+package com.mashibing.tank.strategy;
 
-public class DefaultFireStrategy implements FireStrategy{
+import com.mashibing.tank.Bullet;
+import com.mashibing.tank.Tank;
+
+public class DefaultFireStrategy implements FireStrategy {
     public static volatile DefaultFireStrategy INSTANCE;
     private DefaultFireStrategy(){};
     public static DefaultFireStrategy getInstance(){
