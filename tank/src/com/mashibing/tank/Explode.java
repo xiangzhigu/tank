@@ -8,23 +8,22 @@ public class Explode extends GameObject{
     public static int HEIGHT = ResourceMgr.explode[0].getHeight();
 
 //    TankFrame tankFrame = null;
-    GameModel gameModel = null;
+//    GameModel gameModel = null;
 
     private int step = 0;
 
 
-    public Explode(int x, int y, GameModel gameModel) {
+    public Explode(int x, int y) {
         this.x = x;
         this.y = y;
-        this.gameModel = gameModel;
-
 //        new Thread(()->new Audio("audio/explode.wav").play()).start();  //爆炸声
+       GameModel.getInstance().add(this);
     }
 
 
     public void paint(Graphics g){
         g.drawImage(ResourceMgr.explode[step++], x, y, null);
         if(step >= ResourceMgr.explode.length)
-           gameModel.remove(this);
+           GameModel.getInstance().remove(this);
     }
 }

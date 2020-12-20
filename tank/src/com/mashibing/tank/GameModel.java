@@ -11,7 +11,32 @@ import java.util.List;
 
 public class GameModel {
 
-    Tank myTank = new Tank(200,400,Dir.DOWN,Group.GOOD,this);
+    private static final GameModel INSTANCE = new GameModel();
+
+    static {
+        INSTANCE.init();
+    }
+
+    private void init(){
+        myTank = new Tank(200,400,Dir.DOWN,Group.GOOD);
+
+        int initTankCount = Integer.parseInt((String) PropertMgr.get("initTankCount")) ;
+
+        //初始化敌方坦克
+        for (int i = 0; i < initTankCount; i++) {
+            new Tank(50 + i*80,200,Dir.DOWN,Group.BAD);
+        }
+        add(new Wall(150,150,200,50));
+        add(new Wall(550,150,200,50));
+        add(new Wall(300,300,50,250));
+        add(new Wall(550,300,50,250));
+    }
+
+    public static GameModel getInstance(){
+        return INSTANCE;
+    }
+
+    Tank myTank;
 
     ColliderChain colliderChain = new ColliderChain();
 
@@ -30,13 +55,8 @@ public class GameModel {
         this.objects.remove(gameObject);
     }
 
-    public GameModel() {
-        int initTankCount = Integer.parseInt((String) PropertMgr.get("initTankCount")) ;
+    private GameModel() {
 
-        //初始化敌方坦克
-        for (int i = 0; i < initTankCount; i++) {
-            add(new Tank(50 + i*80,200,Dir.DOWN,Group.BAD, this));
-        }
     }
 
     public void print(Graphics g) {

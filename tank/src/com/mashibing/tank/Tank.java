@@ -8,15 +8,15 @@ import java.util.Random;
 
 public class Tank extends GameObject{
     public int x,y;
-//    public int oldx,oldy;
+    public int oldx,oldy;
 
-    public Dir dir = Dir.DOWN;
+    public Dir dir;
     private final static int SPEED = 5;
-    public Group group = Group.BAD;
+    public Group group;
 
-    private Random random  = new Random();
+    private final Random random  = new Random();
 
-    Rectangle rectangle = new Rectangle();
+    public Rectangle rectangle = new Rectangle();
 
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
@@ -28,20 +28,19 @@ public class Tank extends GameObject{
 
 //    FireStrategy fireStrategy = new DefaultFireStrategy();
 
-    public GameModel gameModel;
-
-    public Tank(int x, int y, Dir dir,Group group, GameModel gameModel) {
+    public Tank(int x, int y, Dir dir,Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
 //        this.tankFrame = tankFrame;
-        this.gameModel = gameModel;
 
         rectangle.x = this.x;
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
+
+        GameModel.getInstance().add(this);
 
     }
 
@@ -49,36 +48,16 @@ public class Tank extends GameObject{
         return rectangle;
     }
 
-    public void setRectangle(Rectangle rectangle) {
-        this.rectangle = rectangle;
-    }
-
     public int getX() {
         return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
     }
 
     public int getY() {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public Dir getDir() {
-        return dir;
-    }
-
     public void setDir(Dir dir) {
         this.dir = dir;
-    }
-
-    public boolean isMoving() {
-        return moving;
     }
 
     public void setMoving(boolean moving) {
@@ -89,12 +68,8 @@ public class Tank extends GameObject{
         return group;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
     public void paint(Graphics g){
-        if(!living) gameModel.remove(this);
+        if(!living) GameModel.getInstance().remove(this);
         switch (dir){
             case LEFT:
                 g.drawImage(this.group ==Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL,x,y,null);
@@ -116,8 +91,8 @@ public class Tank extends GameObject{
     }
 
     private void move() {
-//        oldx = x;
-//        oldy = y;
+        oldx = x;
+        oldy = y;
         if(!moving) return;;
         switch (dir){
             case LEFT:
@@ -167,7 +142,9 @@ public class Tank extends GameObject{
     public void die() {
         this.living = false;
     }
-    public void stop(){
-        moving = false;
+
+    public void back(){
+        x = oldx;
+        y = oldy;
     }
 }
