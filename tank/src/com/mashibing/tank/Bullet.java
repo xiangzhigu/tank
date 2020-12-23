@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Bullet extends GameObject{
     private static final int SPEED = 10;
-    private int x,y;
+//    private int x,y;
     private Dir dir;
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
@@ -62,6 +62,17 @@ public class Bullet extends GameObject{
 //        g.setColor(c);
         move();
     }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
+    }
+
     private void move() {
         switch (dir){
             case LEFT:
